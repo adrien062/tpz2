@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,28 +30,25 @@ class Personne
     /**
      * @var int
      *
-     * @ORM\Column(name="age", type="integer")
+     * @ORM\Column(name="max_weight", type="integer")
      */
-    private $age;
+    private $maxWeight;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="visible", type="boolean")
+     * @ORM\OneToMany(targetEntity="Inventory", mappedBy="personne")
      */
-    private $visible;
+    private $inventories;
 
-    /**
-     * @var date
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
-    private $createdAt;
+
+    public function __construct()
+    {
+        $this->inventories = new ArrayCollection();
+    }
 
     /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
@@ -66,49 +64,40 @@ class Personne
     /**
      * @return int
      */
-    public function getAge(): int
+    public function getMaxWeight()
     {
-        return $this->age;
+        return $this->maxWeight;
     }
 
     /**
-     * @param int $age
+     * @param int $max_weight
      */
-    public function setAge(int $age)
+    public function setMaxWeight(int $max_weight)
     {
-        $this->age = $age;
+        $this->maxWeight = $max_weight;
     }
 
     /**
-     * @return boolean
+     * @return int
      */
-    public function getVisible(): bool
+    public function getId(): int
     {
-        return $this->visible;
+        return $this->id;
     }
 
     /**
-     * @param boolean $visible
+     * @return mixed
      */
-    public function setVisible(bool $visible)
+    public function getInventories()
     {
-        $this->visible = $visible;
+        return $this->inventories;
     }
 
-    /**
-     * @return date
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
 
-    /**
-     * @param date $createdAt
-     */
-    public function setCreatedAt($createdAt)
+    public function __toString()
     {
-        $this->createdAt = $createdAt;
+        return $this->getId() . " " . $this->getName() . " " . $this->getMaxWeight() . PHP_EOL;
+        // TODO: Implement __toString() method.
     }
 
 

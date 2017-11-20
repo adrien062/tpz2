@@ -1,9 +1,13 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+    {% for message in app.flashes('info') %}
+        {{ message }}
+    {% endfor %}
     <ul>
         {% for personne in personnes %}
-            <li>{{ personne.name }}</li>
+            <li>{{ personne }}</li>
+
         {% endfor %}
     </ul>
 {% endblock %}
