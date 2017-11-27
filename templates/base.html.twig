@@ -6,7 +6,10 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <a href="{{ path("app_indexcontroller_index") }}">Accueil</a>
+
+    {% block body %}
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

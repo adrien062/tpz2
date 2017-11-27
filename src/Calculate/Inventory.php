@@ -8,21 +8,20 @@
 
 namespace App\Calculate;
 
-
-use App\Entity\Personne;
-
 class Inventory
 {
     private $em;
     private $person;
     private $inventory;
 
-    public function __construct(\Doctrine\ORM\EntityManager $em)
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em, $my_parameter)
     {
+        $this->my_parameter = $my_parameter;
         $this->em = $em;
     }
 
     public function calcul(){
+        die($this->my_parameter);
         $poidsTotal = 0;
 
         foreach($this->person->getInventories() as $a_inventory){

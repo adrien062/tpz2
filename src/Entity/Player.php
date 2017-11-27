@@ -2,19 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: adrien.lambersens
- * Date: 20/11/17
- * Time: 13:11
+ * Date: 27/11/17
+ * Time: 14:05
  */
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="materials")
+ * @ORM\Table(name="players")
  **/
-class Material
+class Player
 {
     /**
      * @var int
@@ -33,45 +34,6 @@ class Material
     private $name;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="max_weight", type="decimal", precision=2, scale=1)
-     */
-    private $weight;
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @return float
-     */
-    public function getWeight()
-    {
-        return $this->weight;
-    }
-
-    /**
-     * @param float $weight
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-    }
-
-    /**
      * @return int
      */
     public function getId(): int
@@ -79,10 +41,25 @@ class Material
         return $this->id;
     }
 
-    public function __toString()
+    /**
+     * @return mixed
+     */
+    public function getName()
     {
-        return $this->getId() . " " . $this->getName() . " " . $this->getWeight() . PHP_EOL;
-        // TODO: Implement __toString() method.
+        return $this->name;
     }
 
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+        // TODO: Implement __toString() method.
+    }
 }

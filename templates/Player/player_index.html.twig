@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% for message in app.flashes('info') %}
+        {{ message }}
+    {% endfor %}
+    <h2>Page du joueur {{ player }}</h2>
+    {{ player }}
+    <h2>Item</h2>
+    <ul>
+        {% for un_item in playerItem %}
+            <li> {{ un_item}} </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

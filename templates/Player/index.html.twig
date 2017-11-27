@@ -5,8 +5,8 @@
         {{ message }}
     {% endfor %}
     <ul>
-        {% for personne in personnes %}
-            <li>{{ personne }}</li>
+        {% for player in players %}
+            <li><a href="{{ path("app_playercontroller_playerindex", {"id" : player.id}) }}">{{ player }}</a> </li>
 
         {% endfor %}
     </ul>

@@ -2,6 +2,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
+    nb_item: '%env(NB_ITEM)%'
 
 services:
     # default configuration for services in *this* file
@@ -27,3 +28,20 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    App\Entity\Item:
+        public: true
+
+    App\Entity\Player:
+        public: true
+
+    App\Entity\PlayerItem:
+        public: true
+
+    App\Calculate\Item:
+        public: true
+
+    App\Form\PlayerItemType:
+        arguments: ['%nb_item%']
+        public: true
+        autowire: false
