@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Player;
 
 use App\Entity\PlayerItem;
+use App\Event\AppEvent;
 use App\Form\PlayerType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -24,14 +25,20 @@ class PlayerController extends Controller
      * @Route("/new", name="app_playercontroller_new")
      */
     function new(Request $request){
+
         $p = $this->get(\App\Entity\Player::class);
 
         $form = $this->createForm(PlayerType::class, $p);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
             $p = $form->getData();
-            $this->getDoctrine()->getManager()->persist($p);
-            $this->getDoctrine()->getManager()->flush();
+
+            $playerEvent = $this->get("App\Event\PlayerEvent");
+
+            $playerEvent->setPlayer($p);
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch(AppEvent::PLAYER_ADD, $playerEvent);
 
             $router = $this->container->get('router');
             $url = $router->generate("app_playercontroller_index");
@@ -52,8 +59,14 @@ class PlayerController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $p = $form->getData();
-            $this->getDoctrine()->getManager()->persist($p);
-            $this->getDoctrine()->getManager()->flush();
+
+            $playerEvent = $this->get("App\Event\PlayerEvent");
+            $playerEvent->setPlayer($p);
+
+            $dispatcher = $this->get('event_dispatcher');
+            $dispatcher->dispatch(AppEvent::PLAYER_EDIT, $playerEvent);
+
+            return $this->redirectToRoute("app_playercontroller_playerindex", array("id" => $player->getId()));
         }
         return $this->render("Player/edit.html.twig" ,["form" => $form->createView()]);
     }

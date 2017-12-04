@@ -45,3 +45,11 @@ services:
         arguments: ['%nb_item%']
         public: true
         autowire: false
+
+    App\Suscriber\PlayerSubcriber:
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
+    App\Event\PlayerEvent:
+        public: true
+

@@ -20,6 +20,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  **/
 class Player
 {
+
+    public const PLAYER_ROLES = array("ADC" => "ADC", "JUNG" => "JUNG", "TOP" => "TOP", "MID" => "MID", "SUP" => "SUP");
     /**
      * @var int
      *
@@ -60,11 +62,111 @@ class Player
 
     /**
      * @var string
-     * @ORM\Column(name="country", type="string")
+     * @ORM\Column(name="role", type="string")
      *
-     * @Assert\Choice({"France", "Belgique"})
+     * @Assert\Choice({"ADC", "JUNG", "TOP", "MID", "SUP"})
      */
-    private $country;
+    private $role;
+
+    /**
+     * @ORM\Column(name="experience", type="integer", nullable=true)
+     */
+    private $experience;
+
+    /**
+     * @ORM\Column(name="money", type="integer", nullable=true)
+     */
+    private $money;
+
+    /**
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updateAt;
+
+    /**
+     * @return string
+     */
+    public function getMoney()
+    {
+        return $this->money;
+    }
+
+    /**
+     * @param string $money
+     */
+    public function setMoney(string $money)
+    {
+        $this->money = $money;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole(string $role)
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExperience()
+    {
+        return $this->experience;
+    }
+
+    /**
+     * @param string $experience
+     */
+    public function setExperience(string $experience)
+    {
+        $this->experience = $experience;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
+    }
+
+    /**
+     * @param mixed $updateAt
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->updateAt = $updateAt;
+    }
 
     /**
      * @return int
