@@ -43,10 +43,10 @@ class PlayerController extends Controller
     }
 
     /**
-     * @Route("/edit", name="app_playercontroller_edit")
+     * @Route("/edit/{id}", name="app_playercontroller_edit")
      */
-    function edit(Request $request){
-        $p = $this->getDoctrine()->getManager()->getRepository(Player::class)->find(1);
+    function edit(Request $request, Player $player){
+        $p = $this->getDoctrine()->getManager()->getRepository(Player::class)->find($player);
 
         $form = $this->createForm(PlayerType::class, $p);
         $form->handleRequest($request);
@@ -68,7 +68,7 @@ class PlayerController extends Controller
     }
     
     /**
-     * @Route("/player/{id}", name="app_playercontroller_playerindex")
+     * @Route("/{id}", name="app_playercontroller_playerindex")
      */
     function indexPlayer(Player $player){
        // $this->container->get("session")->getFlashBag()->add("info", "test");

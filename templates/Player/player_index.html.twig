@@ -4,6 +4,8 @@
     {% for message in app.flashes('info') %}
         {{ message }}
     {% endfor %}
+
+    <li><a href="{{ path("app_playercontroller_edit", {"id": player.id}) }}">Editer</a></li>
     <h2>Page du joueur {{ player }}</h2>
     {{ player }}
     <h2>Item</h2>
